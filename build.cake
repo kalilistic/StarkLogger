@@ -86,7 +86,7 @@ Task ("Set-Version")
     .IsDependentOn ("Restore-Nuget-Packages")
     .Does (() => {
         if (isLocalBuild) {
-            version = GitVersion ().SemVer + "-LOCAL";
+            version = "1.0.0-LOCAL";
         } else if (isPullRequest) {
             version = GitVersion ().SemVer + ".pr." + pullRequestNumber + "+" + appVeyorBuildVersion;
         } else if (!isMasterBranch) {
