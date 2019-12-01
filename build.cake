@@ -121,12 +121,15 @@ Task ("Run-Unit-Tests")
     .WithCriteria (buildSuccess)
     .IsDependentOn ("Build")
     .Does (() => {
-        var testsPath = "./src/**/bin/" + configuration + "/*.Test.dll";
+        var testsPath = "./src/**/bin/Debug/*.Test.dll";
         var coverageReportDCVR = testResultDir + File ("result.dcvr");
         DotCoverCover (tool => {
-                tool.NUnit3 (testsPath, new NUnit3Settings {
-                    Results = new [] { new NUnit3Result { FileName = testResultFile } }
-                });
+                tool.NUnit3 (
+                    testsPath, 
+                    new NUnit3Settings {
+                        Results = new [] { new NUnit3Result { FileName = testResultFile } },
+                        ShadowCopy = false
+                    });
             },
             new FilePath (coverageReportDCVR),
             new DotCoverCoverSettings ()
