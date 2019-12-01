@@ -121,6 +121,8 @@ Task ("Run-Unit-Tests")
     .WithCriteria (buildSuccess)
     .IsDependentOn ("Build")
     .Does (() => {
+        MSBuild (solutionFile, settings =>
+            settings.SetConfiguration ("Debug"));
         var testsPath = "./src/**/bin/Debug/*.Test.dll";
         var coverageReportDCVR = testResultDir + File ("result.dcvr");
         DotCoverCover (tool => {
