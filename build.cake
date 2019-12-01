@@ -129,7 +129,9 @@ Task ("Run-Unit-Tests")
                 });
             },
             new FilePath (coverageReportDCVR),
-            new DotCoverCoverSettings ());
+            new DotCoverCoverSettings ()
+                .WithFilter("+:" + projectName)
+                .WithFilter("-:" + projectName + ".Test"));
         DotCoverReport (new FilePath (coverageReportDCVR),
             new FilePath (coverageReportXML),
             new DotCoverReportSettings {
